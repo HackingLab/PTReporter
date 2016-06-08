@@ -5,7 +5,7 @@
   %br
   %form{ :class => "form-horizontal", :method => 'post', :enctype => 'application/x-www-form-urlencoded'}
     .control-group
-      %label{ :class => "control-label", :for => "title" } Title
+      %label{ :class => "control-label", :for => "title" } 漏洞名称
       .controls
         %input{ :type => 'text', :name => 'title', :value => ""}
     - if !@master
@@ -183,14 +183,19 @@
         %label{ :class => "control-label", :for => "risk" } 漏洞危险等级
         .controls
           %select{ :name => "risk" }
-            %option{:value => 1}= "Low"
-            %option{:value => 2}= "Moderate"
-            %option{:value => 3}= "High"
-            %option{:value => 4}= "Critical"
+            %option{:value => 1}= "低"
+            %option{:value => 2}= "中"
+            %option{:value => 3}= "高"
+            %option{:value => 4}= "严重"
+    - if !@master
+      .control-group
+        %label{ :class => "control-label", :for => "affected_hosts" } 影响的IP/URL
+        .controls
+          %textarea{ :rows => '10', :class => 'input-xxlarge', :id => 'affected_hosts', :name => 'affected_hosts'}
     .control-group
       %label{ :class => "control-label", :for => "overview" }
         %a{:href=> '#mymodal', "data-toggle"=>'modal', :class=>'btn btn-info'}
-          Overview
+          漏洞描述
       .modal{:id=>'mymodal', :class=>'modal hide fade', :tabindex=>'-1', :role=>'dialog', "aria-labelledby"=>'modal-label', "aria-hidden"=>'true'}
         .modal-header
           %button{:type=>'button', :class=>'close', "data-dismiss"=>"modal", "aria-hidden"=>"true"}
@@ -240,27 +245,24 @@
       .controls
         %textarea{ :rows => '10', :class => 'input-xxlarge', :id => 'overview', :name => 'overview'}
     .control-group
-      %label{ :class => "control-label", :for => "poc" } Proof of Concept
+      %label{ :class => "control-label", :for => "poc" } POC
       .controls
         %textarea{ :rows => '10', :class => 'input-xxlarge', :id => 'poc', :name => 'poc'}
     - if !@master
       .control-group
-        %label{ :class => "control-label", :for => "affected_hosts" } Affected Hosts
+        %label{ :class => "control-label", :for => "notes" } 漏洞危害
         .controls
-          %textarea{ :rows => '10', :class => 'input-xxlarge', :id => 'affected_hosts', :name => 'affected_hosts'}
+          %textarea{ :rows => '10', :class => 'input-xxlarge', :id => 'notes', :name => 'notes'}
+
     .control-group
-      %label{ :class => "control-label", :for => "remediation" } Remediation
+      %label{ :class => "control-label", :for => "remediation" } 修复建议
       .controls
         %textarea{ :rows => '10', :class => 'input-xxlarge', :name => 'remediation'}
     .control-group
-      %label{ :class => "control-label", :for => "references" } References (One Per Line)
+      %label{ :class => "control-label", :for => "references" } 参考链接 (一行一条)
       .controls
         %textarea{ :rows => '5', :class => 'input-xxlarge', :name => 'references'}
-    - if !@master
-      .control-group
-        %label{ :class => "control-label", :for => "notes" } Notes
-        .controls
-          %textarea{ :rows => '10', :class => 'input-xxlarge', :id => 'notes', :name => 'notes'}
+
 
     %input{:type => 'submit', :value => 'Save'}
     %a{ :href => "/"}
