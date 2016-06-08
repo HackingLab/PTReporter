@@ -1,4 +1,4 @@
-# Serpico
+# 中文版渗透测试报告生成系统 Serpico
 ## SimplE RePort wrIting and CollaboratiOn tool
 Serpico is a penetration testing report generation and collaboration tool. It was developed to cut down on the amount of time it takes to write a penetration testing report.
 
@@ -36,19 +36,23 @@ gem install bundler
 bundle install
 ```
 
-- Run the first time script to get setup:
+- 第一次使用使用以下命令进行初始化:
 ```
 ruby scripts/first_time.rb
 ```
 
-To start using Serpico:
+使用以下命令启动:
 ```
 ruby serpico.rb
 ```
 
-Note: A new cert is created on first use. To add your own, just add it to the root directory.
+Note: 第一次使用进行初始化时候回自动创建一个自签名证书,你也可以自己修改,只要放到程序目录里,若修改证书名称只要稍作配置就可以
 
-Point your browser to https://127.0.0.1:8443 (or whatever port you assigned) to start using.
+```
+openssl req -x509 -newkey rsa:2048 -keyout key.pem -out cert.pem -days 700
+```
+
+启动以后使用浏览器访问: https://127.0.0.1:8443 (端口可以根据你设置的进行更改).
 
 
 ## About Serpico
@@ -89,3 +93,128 @@ See the Wiki for more information, [Serpico Meta-Language In Depth](https://gith
 ## Huge Thanks
 * Wouldn't exist without testing, support, and feature suggestion of the rest of the [Moosedojo team!](https://github.com/MooseDojo).
 * @d4rkd0s for the great logo work. Thanks!
+
+
+
+##中文版使用说明
+- 详细说明请参考wiki
+Meta language In-Depth
+
+符号列表说明:
+
+- Ω - 一个简单的替换型变量.
+
+```
+ΩFULL_COMPANY_NAMEΩ
+```
+
+渲染为::
+Acme Corporation
+- § - 一个用户自定义变量. 用户自定义变量可以通过UI进行配置,可以在报告中引用,用户自定义变量在报告中特别好用
+
+```
+§my_executive_summary§
+```
+
+渲染为::
+Whatever the user has placed in the UI.
+
+- ¬ - for each
+```
+¬finding¬
+内容
+∆
+```
+渲染为: a for loop for every finding and prints 'STUFF' in each loop. 
+
+- π - 循环中的替换变量. 在循环中就不要用 Ω 作为替换变量了.
+
+```
+¬report/findings_list/findings¬
+πtitleπ
+∆
+```
+Renders the finding title for every finding in the findings_list of the report.
+NOTE: You can use multiple if statements with for:
+
+¬report/findings_list/findings:::DREAD_TOTAL<50:::DREAD_TOTAL>30¬
+πtitleπ
+∆
+
+# This is read as:
+for each finding
+if dread_total is less than 50
+if dread_total is greater than 30
+
+print title
+
+close for loop and both if's
+
+- æ - 在表格中使用的循环变量,每一个表示一行
+
+::: - 在行中表示if的意思
+
+æreport/findings_list/findings:::DREAD_TOTAL>35æ
+
+Renders a new table row every finding with a DREAD total greater than 35.
+∞ - Substituition variable inside of a for loop inside of a table. Only used in a table.
+
+æreport/findings_list/findings:::DREAD_TOTAL>35æ ∞title∞
+
+Renders a new table row with the title for every finding with a DREAD total greater than 35.
+- † - if 条件
+
+† DREAD_SCORE > 1 †
+HELLO WORLD
+¥
+
+Renders a HELLO WORLD if the DREAD_SCORE is > 1
+- µ - 初始化choose/when结构 Initiates choose/when structure
+
+ƒ - The when value in a choose/when
+
+å - Ends the choose/when not in a for-each
+
+≠ - Ends the choose/when inside of a for-each
+
+¬overview/paragraph¬ 
+µCONDITIONALµ π.π
+ƒcodeƒ π.π
+ƒitalicsƒ π.π
+÷ π.π ≠
+
+This will take each paragraph from the overview section of the finding. 
+If the paragraph is labelled as code then the paragraph will be formatted as code. 
+The "." above means the paragraph variable from the 'overview/paragraph' for loop. 
+
+∆ - 结束each
+
+¥ - 结束if
+
+一个漏洞包含了下面的这些属性,可以使用变量进行访问. 例如:
+
+¬report/findings_list/findings¬
+πtitleπ
+∆
+属性列表:
+
+title
+damage
+reproducability
+exploitability
+affected_users
+discoverability
+effort
+type
+dread_total
+overview
+poc
+remediation
+notes
+assessment_type
+references
+risk
+affected_hosts
+presentation_points
+Status API Training Shop Blog About
+
