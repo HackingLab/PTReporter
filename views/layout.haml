@@ -16,7 +16,7 @@
     %script{:src => "/js/bootstrap-typeahead.js"}
 
     %meta{:charset => "utf-8"}/
-    %title Serpico
+    %title 中文版渗透报告生成系统-Serpico
     %meta{:content => "", :name => "description"}/
     %meta{:content => "", :name => "author"}/
     %link{:href => "/css/bootstrap.css", :rel => "stylesheet"}/
@@ -47,20 +47,20 @@
         .navbar-inner
           %ul.nav{"class" => "padded"}
             %li
-              %a.fa.fa-file-word-o{:href => "/reports/list"} &nbsp;List Reports 
+              %a.fa.fa-file-word-o{:href => "/reports/list"} &nbsp;报告列表 
             %li
-              %a.fa.fa-pencil-square-o{:href => "/report/new"} &nbsp;New Report
+              %a.fa.fa-pencil-square-o{:href => "/report/new"} &nbsp;新建报告
           .nav-collapse
             %ul.nav{"class" => "pull-right padded"}
               - if is_administrator?
                 %li
-                  %a.fa.fa-sitemap{:href => "/master/findings"} &nbsp;Findings Database
+                  %a.fa.fa-sitemap{:href => "/master/findings"} &nbsp;漏洞数据库
                 %li
-                  %a.fa.fa-reorder{:href => "/admin/"} &nbsp;Administration
+                  %a.fa.fa-reorder{:href => "/admin/"} &nbsp;管理
               %li
-                %a.fa.fa-tasks{:href => "/info"} &nbsp;Consultant Information
+                %a.fa.fa-tasks{:href => "/info"} &nbsp;专家信息
               %li
-                %a.fa.fa-external-link-square{:href => "/logout"} &nbsp;Logout
+                %a.fa.fa-external-link-square{:href => "/logout"} &nbsp;退出
 
       <br>
       .container-fluid
@@ -69,55 +69,55 @@
             %br
             - if @master
               %button.btn-danger.btn-small
-                WARNING: You are editing the Templates Database
+                警告：您正在编辑的模板数据库
               %br
               %br
               %ul.nav.nav-list
-                %li.nav-header Findings Menu
+                %li.nav-header 漏洞菜单
                 %li
-                  %a{ :href => '/master/findings' } List Current Findings
+                  %a{ :href => '/master/findings' } 显示当前发现的漏洞信息
                 %li
-                  %a{ :href => '/master/findings/new' } Add Finding
+                  %a{ :href => '/master/findings/new' } 添加漏洞
               %ul.nav.nav-list
-                %li.nav-header Database Functions
+                %li.nav-header 数据库菜单
                 %li
-                  %a{ :href => '/master/export' } Export Current Findings
+                  %a{ :href => '/master/export' } 导出当前漏洞
                 %li
-                  %a{ :href => '/master/import' } Import Findings
+                  %a{ :href => '/master/import' } 导入当前漏洞
             - elsif @admin
               %ul.nav.nav-list
-                %li.nav-header Admin User Menu
+                %li.nav-header 用户管理菜单
                 %li
-                  %a{ :href => '/admin/add_user' } Add User
+                  %a{ :href => '/admin/add_user' } 添加用户
                 %li
-                  %a{ :href => '/admin/list_user' } List Users
-                %li.nav-header Admin Report Template Menu
+                  %a{ :href => '/admin/list_user' } 用户列表
+                %li.nav-header 管理报告模板菜单
                 %li
-                  %a{ :href => '/admin/templates/add' } Add Report Template
+                  %a{ :href => '/admin/templates/add' } 添加报告模板
                 %li
-                  %a{ :href => '/admin/templates' } List Report Templates
+                  %a{ :href => '/admin/templates' } 列表报告模板
             - else
               - if @report
                 %ul.nav.nav-list
                   %li.nav-header
                     #{@report.report_name}
                   %li
-                    %a{ :href => "/report/#{@report.id}/edit" } Edit Report Information
+                    %a{ :href => "/report/#{@report.id}/edit" } 编辑报告信息
                   %li
-                    %a{ :href => "/report/#{@report.id}/generate" } Generate Report
-                    %li.nav-header Findings
+                    %a{ :href => "/report/#{@report.id}/generate" } 生成报告
+                    %li.nav-header 发现的漏洞
                   %li
-                    %a{ :href => "/report/#{@report.id}/findings" } List Current Report Findings
+                    %a{ :href => "/report/#{@report.id}/findings" } 列出当前报告发现的漏洞
                   %li
-                    %a{ :href => "/report/#{@report.id}/findings_add" } Add Finding from Templates
+                    %a{ :href => "/report/#{@report.id}/findings_add" } 从模板中添加漏洞
                   %li
-                    %a{ :href => "/report/#{@report.id}/findings/new" } Create New Finding
-                  %li.nav-header Attachments
+                    %a{ :href => "/report/#{@report.id}/findings/new" } 创建新的漏洞发现
+                  %li.nav-header 附件
                   %li
-                    %a{ :href => "/report/#{@report.id}/upload_attachments" } Upload New Attachment
+                    %a{ :href => "/report/#{@report.id}/upload_attachments" } 上传新附件
                   %li
-                    %a{ :href => "/report/#{@report.id}/attachments" } List Current Attachments
-                  %li.nav-header <a href="/report/#{@report.id}/additional_features">Additional Features</a>
+                    %a{ :href => "/report/#{@report.id}/attachments" } 当前附件列表
+                  %li.nav-header <a href="/report/#{@report.id}/additional_features">附加功能</a>
 
           =yield
   - else
@@ -130,4 +130,4 @@
       %br
       %input.form-control.btn-block{:autofocus => "", :placeholder => "Username", :required => "", :type => "text", :name=> "username"}
       %input.form-control.btn-block{:placeholder => "Password", :required => "", :type => "password", :name=> "password"}
-      %button.btn.btn-primary.btn-block.form-control{:type => "submit"} Sign in
+      %button.btn.btn-primary.btn-block.form-control{:type => "submit"} 登录
