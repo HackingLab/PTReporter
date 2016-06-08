@@ -1,0 +1,26 @@
+.span10
+  %form{:method => 'post', :enctype=>"multipart/form-data"}
+    %br
+    %h2 Upload Templated Findings
+    %br
+    %table
+      %tr
+      %tr
+        %td
+          Upload JSON File - Please be careful. This must have been exported from the UI.&nbsp;
+          %br
+          %br
+          %input{:type => 'file', :name => 'file'}
+      %tr
+        %td
+          %br
+          &nbsp;&nbsp;&nbsp;
+          %input{:type => 'checkbox', :name => 'approved'}
+          Automatically Approve Imported Findings. By default you should manually approve findings, this overrides that.
+    %br
+    %br
+    %input{:type => 'submit', :value => 'Upload' }
+    %a{ :href => "/"}
+      %input{ :type => "button", :value => 'Cancel'}
+
+
