@@ -1,6 +1,6 @@
 .span10
   %br
-    %h3 Current Users
+    %h3 当前用户
     %br  
     .table.table-striped
       %table{:style => 'width: 40%'}
@@ -27,4 +27,4 @@
                   %a{ :class => "btn btn-warning", :href => "/admin/edit_user/#{user.id}"}
                     %i{:class => 'icon-pencil icon-white', :title => 'Edit Password'}
           - else
-            No Users. How Curious. Who are you?
+            没有用户. 奇怪,你是谁?

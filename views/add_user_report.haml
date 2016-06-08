@@ -1,9 +1,9 @@
 .span10
   %form{:method => 'post', :action => "/admin/add_user/#{@report.id}"}
     %br
-    %h2 Editing #{@report.report_name} Report
+    %h2 编辑 #{@report.report_name} 报告
     %br
-    %h3 Current Authors
+    %h3 当前用户
     .table.table-striped
       %table{:style => 'width: 50%'}    
         %tr
@@ -22,7 +22,7 @@
 
     %br
     %label{ :class => "control-label", :for => "add_collaborator" } 
-      Add Collaborator
+      添加合作者
       %select{ :name => "author" } 
         - @users.each do |user|
           %option #{user.username}

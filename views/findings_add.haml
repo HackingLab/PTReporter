@@ -3,11 +3,11 @@
   %br
     - if @findings
       - if @autoadd
-        %h3 Auto Add Findings
+        %h3 自动添加到发现的漏洞
         %h4 
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The following findings were automatically selected to be added to your report.
       - else
-        %h3 Templated Findings
+        %h3 模板中默认的发现漏洞
         %h4 
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Add findings from the template database to your report.
       %br
@@ -82,4 +82,4 @@
         %a{ :href => "/report/#{@report.id}/findings"}
           %input{ :type => "button", :value => 'Cancel'}
     - else
-      No Findings Available
+      没有发现任何漏洞

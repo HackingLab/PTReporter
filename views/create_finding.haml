@@ -1,6 +1,6 @@
 .span10
   %br
-  %h2 New Finding
+  %h2 新发现漏洞
   %br
   %br
   %form{ :class => "form-horizontal", :method => 'post', :enctype => 'application/x-www-form-urlencoded'}
@@ -10,13 +10,13 @@
         %input{ :type => 'text', :name => 'title', :value => ""}
     - if !@master
       .control-group
-        %label{ :class => "control-label", :for => "assessment_type" } Assessment Type
+        %label{ :class => "control-label", :for => "assessment_type" } 评估类型
         .controls
           %select{ :name => "assessment_type" }
             - options.assessment_types.each do |type|
               %option #{type}
     .control-group
-      %label{ :class => "control-label", :for => "effort" } Remediation Effort
+      %label{ :class => "control-label", :for => "effort" } Remediation Effort(修复建议)
       .controls
         %select{ :name => "effort" }
           - if @finding
@@ -29,14 +29,14 @@
             - options.effort.each do |effort|
               %option #{effort}
     .control-group
-      %label{ :class => "control-label", :for => "type" } Finding Type
+      %label{ :class => "control-label", :for => "type" } 漏洞类型
       .controls
         %select{ :name => "type" }
           - options.finding_types.each do |type|
             %option #{type}
     - if @nessusmap
       .control-group
-        %label{ :class => "control-label", :for => "pluginid" } Add new nessus ID mapping
+        %label{ :class => "control-label", :for => "pluginid" }添加新的nessus ID mapping
         .controls
           %input{ :type => 'text', :name => 'pluginid'}
     - if @dread
@@ -53,15 +53,15 @@
         .controls
           %input{ :type => 'number', :min => '0', :max => '10', :name => 'exploitability', :value => "0", :required => true}
       .control-group
-        %label{ :class => "control-label", :for => "affected_users" } Affected Users
+        %label{ :class => "control-label", :for => "affected_users" } 受影响的用户
         .controls
           %input{ :type => 'number', :min => '0', :max => '10', :name => 'affected_users', :value => "0", :required => true}
       .control-group
-        %label{ :class => "control-label", :for => "discoverability" } Discoverability
+        %label{ :class => "control-label", :for => "discoverability" } 可发现型
         .controls
           %input{ :type => 'number', :min => '0', :max => '10', :name => 'discoverability', :value => "0", :required => true}
       .control-group
-        %label{ :class => "control-label", :for => "effort" } Remediation Effort
+        %label{ :class => "control-label", :for => "effort" } Remediation Effort(修复建议)
         .controls
           %select{ :name => "effort" }
             %option LOW
@@ -180,7 +180,7 @@
             %option INVOLVED
     - else
       .control-group
-        %label{ :class => "control-label", :for => "risk" } Vulnerability Risk Level
+        %label{ :class => "control-label", :for => "risk" } 漏洞危险等级
         .controls
           %select{ :name => "risk" }
             %option{:value => 1}= "Low"
@@ -201,7 +201,7 @@
           %p
             There are four markup sets you can use in the Overview and the Remediation summary. This text is converted inside of Microsoft Word.
             %p{:class=>"text-error"}
-              YOU MUST CLOSE ALL TAGS. OTHERWISE YOU CAN DESTROY ALL TEXT FORMATTING. SEE EXAMPLES BELOW.
+              您必须闭合所有标签。否则，你可能破坏所有文本格式。参见下面的示例。
             %b
               Review the finding "TEST - Markup Tester" for a clear example. As always, press preview to see the finding in Word.
           %h2

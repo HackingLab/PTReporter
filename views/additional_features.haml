@@ -1,35 +1,35 @@
 .span10
-  %h2 Additional Features
+  %h2 附加功能
   %br
   %table
     %tr
       %td
-        %a{ :href => "/report/#{@report.id}/user_defined_variables"} Edit User Defined Variables
+        %a{ :href => "/report/#{@report.id}/user_defined_variables"} 编辑用户自定义的变量
     %tr
       %td
-        %a{ :href => "/report/#{@report.id}/export" } Export Current Report (Warning: Attachments Not Included)
-    %tr
-      %td
-        &nbsp;
-    %tr
-      %td
-        %a{ :href => "/report/#{@report.id}/import_nessus" } Auto Add Findings from a Nessus XML
-    %tr
-      %td
-        %a{ :href => "/report/#{@report.id}/import_burp" } Auto Add Findings from a Burp XML scanner report
+        %a{ :href => "/report/#{@report.id}/export" } 导出当前报告（警告：不包括附件）
     %tr
       %td
         &nbsp;
     %tr
       %td
-        %a{ :href => "/report/#{@report.id}/status" } Generate Status Report
+        %a{ :href => "/report/#{@report.id}/import_nessus" } 自动从Nessus的XML中添加结果
     %tr
       %td
-        %a{ :href => "/report/#{@report.id}/text_status" } Generate Text Only Status Report
+        %a{ :href => "/report/#{@report.id}/import_burp" } 自动从Burp的XML扫描报告结果添加
     %tr
       %td
-        %a{ :href => "/report/#{@report.id}/asciidoc_status" } Generate AsciiDoc of Current Findings (Experimental)
+        &nbsp;
+    %tr
+      %td
+        %a{ :href => "/report/#{@report.id}/status" } 生成状态报告
+    %tr
+      %td
+        %a{ :href => "/report/#{@report.id}/text_status" } 生成文本状态报告
+    %tr
+      %td
+        %a{ :href => "/report/#{@report.id}/asciidoc_status" } 生成AsciiDoc报告结果(试验功能)
     %tr
       %td
         %a{ :href => "/report/#{@report.id}/presentation" }
-          Generate Presentation from Report
+          生成报告介绍

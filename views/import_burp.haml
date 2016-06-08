@@ -1,16 +1,16 @@
 .span10
   - if not @burpmap
-    Burp Auto Mapping not enabled. Contact your administrator to enable.
+    Burp 自动映射未启用. 联系你的管理员启用.
   - else
     %form{:method => 'post', :action => "/report/#{@report.id}/import_autoadd", :enctype=>"multipart/form-data"}
       %br
-      %h2 Auto Add Findings from Burp scanner report (XML only)
+      %h2 自动从Burp扫描报告中添加发现的漏洞(仅支持XML格式)
       %br
       %table
         %tr
         %tr
           %td
-            Upload burp scanner report file (XML only).&nbsp;
+            上传Burp扫描报告文件(仅支持XML格式).&nbsp;
             %br
             %br
             %input{:type => 'file', :name => 'file'}

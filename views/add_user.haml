@@ -1,12 +1,12 @@
 .span10
   %form{:method => 'post', :action => '/admin/add_user'}
     %br
-    %h2 Add/Edit User
+    %h2 添加/编辑用户
     %br
     %table
       %tr
         %td
-          Username &nbsp;
+          用户名 &nbsp;
         %td
           - if @user
             %input{:type => 'text', :name => 'username', :value => "#{@user.username}"}
@@ -14,12 +14,12 @@
             %input{:type => 'text', :name => 'username'}
       %tr
         %td
-          Password (Not required for AD Auth Type)
+          密码 (AD认证无需设置密码)
         %td
           %input{:type => 'password', :name => 'password'}
       %tr
         %td
-          Authorization Type
+          授权类型
         %td
           - if @user
             %select{ :name => "auth_type" }
@@ -37,7 +37,7 @@
               %option Local
       %tr
         %td
-          User Level
+          用户等级权限
         %td
           - if @user
             %select{ :name => "type" }

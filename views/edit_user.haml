@@ -1,17 +1,17 @@
 .span10
   %form{:method => 'post'}
     %br
-    %h2 Consultant Information
+    %h2 专家信息
     %br
     %table
      %tr
         %td
-          Consultant Company &nbsp;
+          顾问公司名称 &nbsp;
         %td
           %input{:type => 'text', :name => 'company', :value=> "#{@user.name}"} 
      %tr
         %td
-          Consultant Name &nbsp;
+          专家名称 &nbsp;
         %td
           %input{:type => 'text', :name => 'name', :value=> "#{@user.name}"}
       %tr

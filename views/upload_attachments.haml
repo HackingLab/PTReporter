@@ -1,21 +1,21 @@
 .span10
   %form{:method => 'post', :enctype=>"multipart/form-data"}
     %br
-    %h2 Upload Attachment
-    %h4 Note: Only jpg and png are supported for screenshots . Also, the file extension must be in the description below (e.g. sqli.png).
+    %h2 上传附件
+    %h4 注意: 仅限JPG和PNG格式的屏幕截图,而且图片命名应该以漏洞命令,如sqli.png
     - if @no_file == "1"
-      You forgot to include a file, silly
+      你忘记包含一个文件了!!
     %br
     %br
     %table
       %tr
         %td
-          File Description &nbsp;
+          文件描述 &nbsp;
         %td
           %input{:type => 'text', :name => 'description', :required=>true}
       %tr
         %td
-          Upload &nbsp;
+          上传 &nbsp;
         %td
           %input{:type => 'file', :name => 'file',}
     %br

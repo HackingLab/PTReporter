@@ -1,26 +1,26 @@
 .span10
   %form{:method => 'post'}
     %br
-    %h2 Report Name: #{@report.report_name}
+    %h2 报告名称: #{@report.report_name}
     %br
     %br
     - if @user_variables == ""
       %h3
-        It appears you do not have any user defied variables. Would you like to add some?
+        看来你没有任何用户自定义的变量。你想添加一些吗？
       %br
       %h3
-        Add user defined variables
+        添加用户自定义的变量
       %br
       .table.table-striped
         %table
           %tr
           %td
-            Variable Name:&nbsp;
+            变量名称:&nbsp;
           %td
             %input{:type => 'text', :style => 'width: 90%', :id => 'variable_name', :name =>'variable_name_0_'}
           %tr
           %td
-            Variable data:&nbsp;
+            变量值:&nbsp;
           %td
             %textarea{ :rows => '10', :class => 'input-xxlarge', :id => 'variable_data', :name => 'variable_data_0_'}
         %br
@@ -32,12 +32,12 @@
           %table
             %tr
             %td
-              Variable Name:&nbsp;
+              变量名称:&nbsp;
             %td
               %input{:type => 'text', :style => 'width: 90%', :id => 'variable_name', :name =>"variable_name_#{w}_", :value => "#{variables_name}"}
             %tr
             %td
-              Variable data:&nbsp;
+              变量值:&nbsp;
             %td
               %textarea{:name => "variable_data_#{w}_"}
                 #{variables_data}
@@ -46,17 +46,17 @@
         %br
         %br
       %h3
-      Add addtional user defined variables
+      添加其他用户自定义的变量
       .table.table-striped
         %table
           %tr
           %td
-            Variable Name:&nbsp;
+            变量名称:&nbsp;
           %td
             %input{:type => 'text', :style => 'width: 90%', :id => 'variable_name_#{i}_', :name =>"variable_name_#{i}_"}
           %tr
           %td
-            Variable data:&nbsp;
+            变量值:&nbsp;
           %td
             %textarea{ :rows => '10', :class => 'input-xxlarge', :id => 'variable_data', :name => "variable_data_#{i}_"}
         %br
