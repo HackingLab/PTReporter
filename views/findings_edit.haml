@@ -5,13 +5,13 @@
   %br
   %form{ :class => "form-horizontal", :method => 'post', :enctype => 'application/x-www-form-urlencoded'}
     .control-group
-      %label{ :class => "control-label", :for => "title" } Title
+      %label{ :class => "control-label", :for => "title" } 漏洞标题
       .controls
         %input{ :type => 'text', :name => 'title', :value => "#{@finding.title}"}
     -if !@master
       %br
       .control-group
-        %label{ :class => "control-label", :for => "assessment_type" } Assessment Type
+        %label{ :class => "control-label", :for => "assessment_type" } 评估类型
         .controls
           %select{ :name => "assessment_type" }
             - options.assessment_types.each do |type|
@@ -94,7 +94,7 @@
         .controls
           %input{ :type => 'number', :min => '1', :max => '10', :name => 'exploitability', :value => "#{@finding.exploitability}", :required => true}
       .control-group
-        %label{ :class => "control-label", :for => "affected_users" } Affected Users
+        %label{ :class => "control-label", :for => "affected_users" } 受影响的用户
         .controls
           %input{ :type => 'number', :min => '1', :max => '10', :name => 'affected_users', :value => "#{@finding.affected_users}", :required => true}
       .control-group
@@ -231,10 +231,10 @@
 
     - else
       .control-group
-        %label{ :class => "control-label", :for => "risk" } Vulnerability Risk Level
+        %label{ :class => "control-label", :for => "risk" } 危险等级
         .controls
           %select{ :name => "risk" }
-            - risk_types = ["None", "Low", "Moderate", "High", "Critical"]
+            - risk_types = ["无", "低", "中", "高", "严重"]
             - if !@finding.risk
               - @finding.risk = @finding.dread_total/10
               - @finding.risk = 4 if dread_total == 50
@@ -253,7 +253,7 @@
             - else
               %option #{effort}
     .control-group
-      %label{ :class => "control-label", :for => "type" } Finding Type
+      %label{ :class => "control-label", :for => "type" } 漏洞类型
       .controls
         %select{ :name => "type" }
           - options.finding_types.each do |type|
@@ -261,10 +261,18 @@
               %option{ :selected => "selected" } #{type}
             - else
               %option #{type}
+    - if !@master
+      .control-group
+        %label{ :class => "control-label", :for => "affected_hosts" } 影响的IP/URL
+        .controls
+          %textarea{ :rows => '3', :class => 'input-xxlarge', :name => 'affected_hosts'}
+            - if @finding
+              - if @finding.affected_hosts
+                #{meta_markup(@finding.affected_hosts)}
     .control-group
       %label{ :class => "control-label", :for => "overview" }
         %a{:href=> '#mymodal', "data-toggle"=>'modal', :class=>'btn btn-info'}
-          Overview
+          漏洞描述
       .modal{:id=>'mymodal', :class=>'modal hide fade', :tabindex=>'-1', :role=>'dialog', "aria-labelledby"=>'modal-label', "aria-hidden"=>'true'}
         .modal-header
           %button{:type=>'button', :class=>'close', "data-dismiss"=>"modal", "aria-hidden"=>"true"}
@@ -331,7 +339,7 @@
             - if @finding.overview
               #{meta_markup(@finding.overview)}
     .control-group
-      %label{ :class => "control-label", :for => "poc" } Proof of Concept
+      %label{ :class => "control-label", :for => "poc" } POC
       .controls
         %textarea{ :rows => '10', :class => 'input-xxlarge', :name => 'poc'}
           - if @finding
@@ -339,29 +347,7 @@
               #{meta_markup(@finding.poc)}
     - if !@master
       .control-group
-        %label{ :class => "control-label", :for => "affected_hosts" } Affected Hosts/URLs
-        .controls
-          %textarea{ :rows => '3', :class => 'input-xxlarge', :name => 'affected_hosts'}
-            - if @finding
-              - if @finding.affected_hosts
-                #{meta_markup(@finding.affected_hosts)}
-    .control-group
-      %label{ :class => "control-label", :for => "remediation" } Remediation
-      .controls
-        %textarea{ :rows => '10', :class => 'input-xxlarge', :name => 'remediation'}
-          - if @finding
-            - if @finding.remediation
-              #{meta_markup(@finding.remediation)}
-    .control-group
-      %label{ :class => "control-label", :for => "references" } References (One Per Line)
-      .controls
-        %textarea{ :rows => '5', :class => 'input-xxlarge', :name => 'references'}
-          - if @finding
-            - if @finding.references
-              #{meta_markup(@finding.references)}
-    - if !@master
-      .control-group
-        %label{ :class => "control-label", :for => "notes" } Notes Data
+        %label{ :class => "control-label", :for => "notes" } 漏洞危害
         %i{:class=>"icon-chevron-down", "data-toggle"=>"collapse", "data-target"=>"#info_2", :id=>"actionButton"}
         .info{ :id => "info_2", :class => "collapse out" }
           %label
@@ -371,6 +357,21 @@
             - if @finding
               - if @finding.notes
                 #{meta_markup(@finding.notes)}
+    .control-group
+      %label{ :class => "control-label", :for => "remediation" } 修复建议
+      .controls
+        %textarea{ :rows => '10', :class => 'input-xxlarge', :name => 'remediation'}
+          - if @finding
+            - if @finding.remediation
+              #{meta_markup(@finding.remediation)}
+    .control-group
+      %label{ :class => "control-label", :for => "references" } 参考链接 (一行一个)
+      .controls
+        %textarea{ :rows => '5', :class => 'input-xxlarge', :name => 'references'}
+          - if @finding
+            - if @finding.references
+              #{meta_markup(@finding.references)}
+
     - if !@master
       .control-group
         %label{ :class => "control-label", :for => "preso" } Presentation Data
