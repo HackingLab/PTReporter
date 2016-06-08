@@ -106,26 +106,26 @@ Meta language In-Depth
 
 ```
 ΩFULL_COMPANY_NAMEΩ
+
+渲染为: 完整的公司名称
 ```
 
-渲染为::
-Acme Corporation
 - § - 一个用户自定义变量. 用户自定义变量可以通过UI进行配置,可以在报告中引用,用户自定义变量在报告中特别好用
 
 ```
 §my_executive_summary§
-```
 
-渲染为::
-Whatever the user has placed in the UI.
+渲染为: 用户在UI中定义的该变量的值
+```
 
 - ¬ - for each
 ```
 ¬finding¬
 内容
 ∆
+
+渲染为: 每一个finding(漏洞)循环中都会打印'STUFF'. 
 ```
-渲染为: a for loop for every finding and prints 'STUFF' in each loop. 
 
 - π - 循环中的替换变量. 在循环中就不要用 Ω 作为替换变量了.
 
@@ -133,49 +133,56 @@ Whatever the user has placed in the UI.
 ¬report/findings_list/findings¬
 πtitleπ
 ∆
-```
-Renders the finding title for every finding in the findings_list of the report.
-NOTE: You can use multiple if statements with for:
 
+在findings_list中的每一个findings中输出这个finding的标题.
+
+```
+
+- NOTE: 你可以在for循环中使用if来做判断:
+```
 ¬report/findings_list/findings:::DREAD_TOTAL<50:::DREAD_TOTAL>30¬
 πtitleπ
 ∆
 
-# This is read as:
+上面的代码表示:
 for each finding
-if dread_total is less than 50
-if dread_total is greater than 30
+if dread_total < 50
+if dread_total >30
 
 print title
 
 close for loop and both if's
+```
 
 - æ - 在表格中使用的循环变量,每一个表示一行
-
+``
 ::: - 在行中表示if的意思
 
 æreport/findings_list/findings:::DREAD_TOTAL>35æ
 
-Renders a new table row every finding with a DREAD total greater than 35.
-∞ - Substituition variable inside of a for loop inside of a table. Only used in a table.
+在finding(漏洞)列表中DREAD_TOTAL>35的渲染为一个表格的行
+- ∞ - 在一个表格中作为替换变量使用,注意仅在表格中使用
 
 æreport/findings_list/findings:::DREAD_TOTAL>35æ ∞title∞
 
-Renders a new table row with the title for every finding with a DREAD total greater than 35.
-- † - if 条件
+在finding(漏洞)列表中DREAD_TOTAL>35的渲染为一个表格的行并填入标题
+```
 
+- † - if 条件
+```
 † DREAD_SCORE > 1 †
 HELLO WORLD
 ¥
 
-Renders a HELLO WORLD if the DREAD_SCORE is > 1
+如果DREAD_SCORE > 1那么输出一个HELLO WORLD
+```
 - µ - 初始化choose/when结构 Initiates choose/when structure
 
-ƒ - The when value in a choose/when
+ƒ - choose/when中when的value值
 
-å - Ends the choose/when not in a for-each
+å - 在for-each外结束一个choose/when
 
-≠ - Ends the choose/when inside of a for-each
+≠ - 在for-each里结束一个choose/when
 
 ¬overview/paragraph¬ 
 µCONDITIONALµ π.π
@@ -184,8 +191,11 @@ Renders a HELLO WORLD if the DREAD_SCORE is > 1
 ÷ π.π ≠
 
 This will take each paragraph from the overview section of the finding. 
+这将会打印出overview部分所有的漏洞段落的内容
 If the paragraph is labelled as code then the paragraph will be formatted as code. 
+如果这个段落被标记为code,那么这里就会被格式化为code
 The "." above means the paragraph variable from the 'overview/paragraph' for loop. 
+上面的"." 意味着'overview/paragraph'中的段落变量
 
 ∆ - 结束each
 
