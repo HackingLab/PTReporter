@@ -30,7 +30,7 @@ def generate_xslt(docx)
     </xsl:processing-instruction>'
 
 	document = ""
-	debug = true
+	debug = false
 
 	# Read in the DOCX and grab the document.xml
 	Zip::Archive.open(docx, Zip::CREATE) do |zipfile|

@@ -155,19 +155,19 @@ close for loop and both if's
 ```
 
 - æ - 在表格中使用的循环变量,每一个表示一行
-``
+```
 ::: - 在行中表示if的意思
-
+```
 æreport/findings_list/findings:::DREAD_TOTAL>35æ
-
+```
 在finding(漏洞)列表中DREAD_TOTAL>35的渲染为一个表格的行
 - ∞ - 在一个表格中作为替换变量使用,注意仅在表格中使用
 
+```
 æreport/findings_list/findings:::DREAD_TOTAL>35æ ∞title∞
-
+```
 在finding(漏洞)列表中DREAD_TOTAL>35的渲染为一个表格的行并填入标题
 ```
-
 - † - if 条件
 ```
 † DREAD_SCORE > 1 †
@@ -196,10 +196,11 @@ If the paragraph is labelled as code then the paragraph will be formatted as cod
 如果这个段落被标记为code,那么这里就会被格式化为code
 The "." above means the paragraph variable from the 'overview/paragraph' for loop. 
 上面的"." 意味着'overview/paragraph'中的段落变量
+```
 
-∆ - 结束each
+- ∆ - 结束each
 
-¥ - 结束if
+- ¥ - 结束if
 
 一个漏洞包含了下面的这些属性,可以使用变量进行访问. 例如:
 

@@ -1,6 +1,7 @@
+._*
 db/master.db
 cert.pem
 key.pem
-#tmp/*
-#templates/*
+tmp/*
+templates/*
 attachments/*
