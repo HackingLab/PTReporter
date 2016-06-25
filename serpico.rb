@@ -6,6 +6,7 @@ require 'haml'
 require 'zipruby'
 require 'net/ldap'
 require 'json'
+require 'mime/types'
 
 #serpico handlers
 require './model/master'
