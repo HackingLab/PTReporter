@@ -1032,9 +1032,9 @@ post '/report/:id/upload_attachments' do
     rand_file = "./attachments/#{rand(36**36).to_s(36)}"
 
 	# reject if the file is above a certain limit
-	if params[:file][:tempfile].size > 100000000
-		return "File too large. 100MB limit"
-	end
+	#if params[:file][:tempfile].size > 100000000
+		#return "File too large. 100MB limit"
+	#end
 
 	# open up a file handle and write the attachment
     #File.open(rand_file, 'wb') {|f| f.write(params[:file][:tempfile].read) }
