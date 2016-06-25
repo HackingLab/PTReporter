@@ -1,95 +1,38 @@
-$(function(){
-
-    var ul = $('#upload ul');
-
-    $('#drop a').click(function(){
-        // Simulate a click on the file input button
-        // to show the file browser dialog
-        $(this).parent().find('input').click();
-    });
-
-    // Initialize the jQuery File Upload plugin
-    $('#upload').fileupload({
-
-        // This element will accept file drag/drop uploading
-        dropZone: $('#drop'),
-
-        // This function is called when a file is added to the queue;
-        // either via the browse button, or via drag/drop:
-        add: function (e, data) {
-
-            var tpl = $('<li class="working"><input type="text" value="0" data-width="48" data-height="48"'+
-                ' data-fgColor="#0788a5" data-readOnly="1" data-bgColor="#3e4043" /><p></p><span></span></li>');
-
-            // Append the file name and file size
-            tpl.find('p').text(data.files[0].name)
-                         .append('<i>' + formatFileSize(data.files[0].size) + '</i>');
-
-            // Add the HTML to the UL element
-            data.context = tpl.appendTo(ul);
-
-            // Initialize the knob plugin
-            tpl.find('input').knob();
-
-            // Listen for clicks on the cancel icon
-            tpl.find('span').click(function(){
-
-                if(tpl.hasClass('working')){
-                    jqXHR.abort();
+//查找box元素,检测当粘贴时候,
+    document.querySelector('#overview').addEventListener('paste', function(e) {
+        //判断是否是粘贴图片
+        if (e.clipboardData && e.clipboardData.items[0].type.indexOf('image') > -1) 
+        {
+            var that      = this,
+                reader   = new FileReader();
+                file     = e.clipboardData.items[0].getAsFile();
+            //ajax上传图片
+            reader.onload = function(e) 
+            {
+                var xhr = new XMLHttpRequest(),
+                    fd  = new FormData();
+                xhr.open('POST', '../upload_attachments', true);
+                xhr.onload = function () 
+                {
+                    var img = new Image();
+                    img.src = "../attachments/"+xhr.responseText;
+                    that.innerHTML += '<img src="'+img.src+'" alt=""/>';
+                       //https://172.16.1.111:8443/report/4/attachments/11
+                    //document.getElementById("overview").value = img.src;
                 }
+                // this.result得到图片的base64 (可以用作即时显示)
 
-                tpl.fadeOut(function(){
-                    tpl.remove();
-                });
-
-            });
-
-            // Automatically upload the file once it is added to the queue
-            var jqXHR = data.submit();
-        },
-
-        progress: function(e, data){
-
-            // Calculate the completion percentage of the upload
-            var progress = parseInt(data.loaded / data.total * 100, 10);
-
-            // Update the hidden input field and trigger a change
-            // so that the jQuery knob plugin knows to update the dial
-            data.context.find('input').val(progress).change();
-
-            if(progress == 100){
-                data.context.removeClass('working');
+                window.URL = window.URL || window.webkitURL;
+                var blobUrl = window.URL.createObjectURL(file);
+                //fd.append('file', this.result); 
+                console.log(this.result);
+                fd.append('file',this.result); 
+                var picname=Date.now();
+                fd.append('description',picname);
+                that.innerHTML = '[!!"'+picname+'"!!]'+'';
+                xhr.send(fd);
             }
-        },
-
-        fail:function(e, data){
-            // Something has gone wrong!
-            data.context.addClass('error');
+            reader.readAsDataURL(file);
         }
+    }, false);
 
-    });
-
-
-    // Prevent the default action when a file is dropped on the window
-    $(document).on('drop dragover', function (e) {
-        e.preventDefault();
-    });
-
-    // Helper function that formats the file sizes
-    function formatFileSize(bytes) {
-        if (typeof bytes !== 'number') {
-            return '';
-        }
-
-        if (bytes >= 1000000000) {
-            return (bytes / 1000000000).toFixed(2) + ' GB';
-        }
-
-        if (bytes >= 1000000) {
-            return (bytes / 1000000).toFixed(2) + ' MB';
-        }
-
-        return (bytes / 1000).toFixed(2) + ' KB';
-    }
-
-});
