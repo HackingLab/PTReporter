@@ -6,6 +6,7 @@ require 'haml'
 require 'zipruby'
 require 'net/ldap'
 require 'json'
+require 'mime/types'
 
 #serpico handlers
 require './model/master'
@@ -1037,20 +1038,32 @@ post '/report/:id/upload_attachments' do
 	end
 
 	# open up a file handle and write the attachment
-	File.open(rand_file, 'wb') {|f| f.write(params[:file][:tempfile].read) }
+    #File.open(rand_file, 'wb') {|f| f.write(params[:file][:tempfile].read) }
+    REGEXP = /\Adata:([-\w]+\/[-\w\+\.]+)?;base64,(.*)/m
+    data_uri_parts = params[:file].match(REGEXP) || []
+    extension = MIME::Types[data_uri_parts[1]].first.preferred_extension
+    
+
+    File.open(rand_file, 'wb')   {|f| f.write(Base64.decode64(data_uri_parts[2])) }
 
 	# delete the file data from the attachment
 	datax = Hash.new
 	# to prevent traversal we hardcode this
 	datax["filename_location"] = "#{rand_file}"
-	datax["filename"] = params[:file][:filename]
 	datax["description"] = CGI::escapeHTML(params[:description]).gsub(" ","_").gsub("/","_")
+
+    #datax["filename"] = params[:file][:filename]
+    file_name = "#{datax["description"]}.#{extension}"
+    datax["filename"] = file_name
 	datax["report_id"] = id
 	data = url_escape_hash(datax)
 
 	@attachment = Attachments.new(data)
 	@attachment.save
-	redirect to("/report/#{id}/attachments")
+    @attachment = Attachments.first(:report_id => id, :description => datax["description"])
+    #print attachid
+    "#{@attachment.id}"
+	#redirect to("/report/#{id}/attachments")
 end
 
 # display attachment
