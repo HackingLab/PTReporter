@@ -1039,9 +1039,10 @@ post '/report/:id/upload_attachments' do
 
 	# open up a file handle and write the attachment
     #File.open(rand_file, 'wb') {|f| f.write(params[:file][:tempfile].read) }
-    REGEXP = /\Adata:image\/([-\w]+\/[-\w\+\.]+);base64,(.*)/m
+    REGEXP = /data:image\/(.*);base64,(.*)/m
     data_uri_parts = params[:file].match(REGEXP) || []
     extension = data_uri_parts[1]
+
     if data_uri_parts[2]!=nil
         File.open(rand_file, 'wb')   {|f| f.write(Base64.strict_decode64(data_uri_parts[2])) }
 
@@ -1064,7 +1065,7 @@ post '/report/:id/upload_attachments' do
         "#{@attachment.id}"
     	#redirect to("/report/#{id}/attachments")
     else
-        "error!#{@data_uri_parts[1]}#{@data_uri_parts[2]}"
+        "error!"
     end
 end
 
