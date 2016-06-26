@@ -22,9 +22,10 @@ h3 code {
 }
 
 #overview{
-  width: 400px; 
-  min-height: 120px; 
-  max-height: 300px; 
+  width: 530px; 
+  min-height: 150px; 
+  max-height: 450px; 
+  border:1px solid #F00
 }
 
 /* Tweak navbar brand link to be super sleek

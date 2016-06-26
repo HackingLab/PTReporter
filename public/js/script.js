@@ -16,7 +16,7 @@ $(document).ready(function() {
                 {
                     var img = new Image();
                     img.src = "../attachments/"+xhr.responseText;
-                    //document.getElementById("overview").value = img.src;
+                    $('#overview').html($('#overview').html()+"<img class='userpreview_img' src='"+img.src+"'>");
 
                 }
                 window.URL = window.URL || window.webkitURL;
@@ -24,7 +24,7 @@ $(document).ready(function() {
                 fd.append('file',this.result); 
                 var picname=Date.now();
                 fd.append('description',picname);
-                $('#overview').val($('#overview').val()+ '[!!"'+picname+'"!!]'+'');
+                $('#overview').html($('#overview').html()+ '[!!"'+picname+'"!!]'+'');
                 xhr.send(fd);
             }
             reader.readAsDataURL(file);
