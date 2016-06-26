@@ -1042,7 +1042,7 @@ post '/report/:id/upload_attachments' do
     REGEXP = /\Adata:image\/([-\w]+\/[-\w\+\.]+);base64,(.*)/m
     data_uri_parts = params[:file].match(REGEXP) || []
     extension = data_uri_parts[1]
-    if data_uri_parts[2].length>0
+    if data_uri_parts[2]!=nil
         File.open(rand_file, 'wb')   {|f| f.write(Base64.strict_decode64(data_uri_parts[2])) }
 
     	# delete the file data from the attachment
