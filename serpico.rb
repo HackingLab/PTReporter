@@ -1039,7 +1039,7 @@ post '/report/:id/upload_attachments' do
 
 	# open up a file handle and write the attachment
     #File.open(rand_file, 'wb') {|f| f.write(params[:file][:tempfile].read) }
-    REGEXP = /\Adata:image/([-\w]+\/[-\w\+\.]+)?;base64,(.*)/m
+    REGEXP = /\Adata:image\/([-\w]+\/[-\w\+\.]+)?;base64,(.*)/m
     data_uri_parts = params[:file].match(REGEXP) || []
     extension = data_uri_parts[1]
     
