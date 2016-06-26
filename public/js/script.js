@@ -7,7 +7,6 @@ $(document).ready(function() {
             var that      = this,
                 reader   = new FileReader();
                 file     = e.clipboardData.items[0].getAsFile();
-            //ajax上传图片
             reader.onload = function(e) 
             {
                 var xhr = new XMLHttpRequest(),
@@ -17,19 +16,15 @@ $(document).ready(function() {
                 {
                     var img = new Image();
                     img.src = "../attachments/"+xhr.responseText;
-                    that.innerHTML += '<img src="'+img.src+'" alt=""/>';
                     //document.getElementById("overview").value = img.src;
-                }
-                // this.result得到图片的base64 (可以用作即时显示)
 
+                }
                 window.URL = window.URL || window.webkitURL;
                 var blobUrl = window.URL.createObjectURL(file);
-                //fd.append('file', this.result); 
-                //console.log(this.result);
                 fd.append('file',this.result); 
                 var picname=Date.now();
                 fd.append('description',picname);
-                that.innerHTML = '[!!"'+picname+'"!!]'+'';
+                $('#overview').val($('#overview').val()+ '[!!"'+picname+'"!!]'+'');
                 xhr.send(fd);
             }
             reader.readAsDataURL(file);

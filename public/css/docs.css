@@ -21,7 +21,11 @@ h3 code {
   font-weight: normal;
 }
 
-
+#overview{
+  width: 400px; 
+  min-height: 120px; 
+  max-height: 300px; 
+}
 
 /* Tweak navbar brand link to be super sleek
 -------------------------------------------------- */
