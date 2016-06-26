@@ -6,7 +6,7 @@ require 'haml'
 require 'zipruby'
 require 'net/ldap'
 require 'json'
-require 'mime/types'
+#require 'mime/types'
 
 #serpico handlers
 require './model/master'
@@ -1039,31 +1039,33 @@ post '/report/:id/upload_attachments' do
 
 	# open up a file handle and write the attachment
     #File.open(rand_file, 'wb') {|f| f.write(params[:file][:tempfile].read) }
-    REGEXP = /\Adata:image\/([-\w]+\/[-\w\+\.]+)?;base64,(.*)/m
+    REGEXP = /\Adata:image\/([-\w]+\/[-\w\+\.]+);base64,(.*)/m
     data_uri_parts = params[:file].match(REGEXP) || []
     extension = data_uri_parts[1]
-    
+    if data_uri_parts[2].length>0
+        File.open(rand_file, 'wb')   {|f| f.write(Base64.strict_decode64(data_uri_parts[2])) }
 
-    File.open(rand_file, 'wb')   {|f| f.write(Base64.decode64(data_uri_parts[2])) }
+    	# delete the file data from the attachment
+    	datax = Hash.new
+    	# to prevent traversal we hardcode this
+    	datax["filename_location"] = "#{rand_file}"
+    	datax["description"] = CGI::escapeHTML(params[:description]).gsub(" ","_").gsub("/","_")
 
-	# delete the file data from the attachment
-	datax = Hash.new
-	# to prevent traversal we hardcode this
-	datax["filename_location"] = "#{rand_file}"
-	datax["description"] = CGI::escapeHTML(params[:description]).gsub(" ","_").gsub("/","_")
+        #datax["filename"] = params[:file][:filename]
+        file_name = "#{datax["description"]}.#{extension}"
+        datax["filename"] = file_name
+    	datax["report_id"] = id
+    	data = url_escape_hash(datax)
 
-    #datax["filename"] = params[:file][:filename]
-    file_name = "#{datax["description"]}.#{extension}"
-    datax["filename"] = file_name
-	datax["report_id"] = id
-	data = url_escape_hash(datax)
-
-	@attachment = Attachments.new(data)
-	@attachment.save
-    @attachment = Attachments.first(:report_id => id, :description => datax["description"])
-    #print attachid
-    "#{@attachment.id}"
-	#redirect to("/report/#{id}/attachments")
+    	@attachment = Attachments.new(data)
+    	@attachment.save
+        @attachment = Attachments.first(:report_id => id, :description => datax["description"])
+        #print attachid
+        "#{@attachment.id}"
+    	#redirect to("/report/#{id}/attachments")
+    else
+        "error!#{@data_uri_parts[1]}#{@data_uri_parts[2]}"
+    end
 end
 
 # display attachment
