@@ -11,6 +11,16 @@ $(document).ready(function() {
             {
                 var xhr = new XMLHttpRequest(),
                     fd  = new FormData();
+                var a=window.location.pathname.split("/");
+                var url='../upload_attachments';
+                if(a[a.length-1]=="edit"){
+                    //edit
+                    url='../../upload_attachments';
+                }else{
+                    //new
+
+                    url='../upload_attachments';
+                }
                 xhr.open('POST', '../upload_attachments', true);
                 xhr.onload = function () 
                 {
