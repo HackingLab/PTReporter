@@ -7,7 +7,7 @@
     .control-group
       %label{ :class => "control-label", :for => "title" } 漏洞名称
       .controls
-        %input{ :type => 'text', :name => 'title', :value => ""}
+        %input{ :type => 'text', :name => 'title', :value => "", :id=>'title'}
     - if !@master
       .control-group
         %label{ :class => "control-label", :for => "assessment_type" } 评估类型
@@ -243,7 +243,7 @@
               [[[ code, code goes here ]]]
 
       .controls
-        %div{ :rows => '10', :class => 'input-xxlarge', :contenteditable => 'true', :id => 'overview', :name => 'overview'}
+        %input{ :rows => '10', :class => 'input-xxlarge', :contenteditable => 'true', :id => 'overview', :name => 'overview'}
         %br
         %br
         %br

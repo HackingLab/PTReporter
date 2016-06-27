@@ -3,7 +3,7 @@
   %h2 #{@finding.title}
   %br
   %br
-  %form{ :class => "form-horizontal", :method => 'post', :enctype => 'application/x-www-form-urlencoded', :onsubmit=>'findings_check();'}
+  %form{ :class => "form-horizontal", :method => 'post', :enctype => 'application/x-www-form-urlencoded', :onclick=>'return findings_check();'}
     .control-group
       %label{ :class => "control-label", :for => "title" } 漏洞标题
       .controls

@@ -26,7 +26,7 @@ $(document).ready(function() {
                 {
                     var img = new Image();
                     img.src = "../attachments/"+xhr.responseText;
-                    $('#overview').html($('#overview').html()+"<img class='userpreview_img' src='"+img.src+"'>");
+                    //$('#overview').html($('#overview').html()+"<img class='userpreview_img' src='"+img.src+"'>");
 
                 }
                 window.URL = window.URL || window.webkitURL;
@@ -41,7 +41,12 @@ $(document).ready(function() {
         }
     }, false);
     function findings_check(){
-        ;
-    }
+        /*var url="";
+        $.post(url,{},function(){
+            ;
+        });*/
+        //return false;
+    }    
+    
 
 });
