@@ -15,7 +15,7 @@ $(document).ready(function() {
                 var url='../upload_attachments';
                 if(a[a.length-1]=="edit"){
                     //edit
-                    url='../../upload_attachments';
+                    url='../../../upload_attachments';
                 }else{
                     //new
 
@@ -40,13 +40,14 @@ $(document).ready(function() {
             reader.readAsDataURL(file);
         }
     }, false);
+    
+    
+
+});
     function findings_check(){
         /*var url="";
         $.post(url,{},function(){
             ;
         });*/
         //return false;
-    }    
-    
-
-});
+    }
