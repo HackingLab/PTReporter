@@ -40,5 +40,8 @@ $(document).ready(function() {
             reader.readAsDataURL(file);
         }
     }, false);
+    function findings_check(){
+        ;
+    }
 
 });
